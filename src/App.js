@@ -1,40 +1,23 @@
 import './App.scss'
-import Categories from './components/CategoryList/catories.component';
-
+import { Routes ,Route } from 'react-router-dom';
+import Home from './components/Route/home.component';
+import Navbar from './components/Route/Navbar.component';
 
 const App=()=> {
-  const category = [
-    {
-      "id": 1,
-      "title": "hats",
-      "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
-    },
-    {
-      "id": 2,
-      "title": "jackets",
-      "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png"
-    },
-    {
-      "id": 3,
-      "title": "sneakers",
-      "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
-    },
-    {
-      "id": 4,
-      "title": "womens",
-      "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
-    },
-    {
-      "id": 5,
-      "title": "mens",
-      "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
-    }
-  ]
-
-
+  
+  
+  const Shop= ()=>{
+    return <h1>Im shop</h1>
+  }
   return (
   
-    <Categories category={category}></Categories>
+    <Routes>
+      <Route path='/' element={<Navbar></Navbar>}>
+        <Route index element={<Home/>}/>
+        <Route path='shop' element={<Shop/>} />
+      </Route>
+
+    </Routes>
 
   );
 }
