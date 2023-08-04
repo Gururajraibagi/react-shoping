@@ -1,4 +1,4 @@
-import Categories from '../CategoryList/catories.component'
+import Categories from '../../CategoryList/catories.component'
 import { Outlet } from 'react-router-dom';
 
 const Home = () =>{
