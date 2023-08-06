@@ -1,4 +1,5 @@
 import { Outlet,Link } from "react-router-dom"
+import SignIn from "../signin/signin.component"
 
 import { ReactComponent as CrownLogo } from "../../../assets/crown.svg"
 
@@ -11,6 +12,8 @@ const Navbar = () =>{
         </Link>
         <div className="nav-links-container">
             <Link to='/shop' className="nav-link"> Shop</Link>
+            <Link to='/signin' className="nav-link"> SignIn </Link>
+
         </div>
       </div>
       <Outlet></Outlet>
