@@ -1,24 +1,29 @@
-import { Outlet,Link } from "react-router-dom"
-import SignIn from "../signin/signin.component"
+import { Outlet, Link } from "react-router-dom";
+import SignIn from "../signin/signin.component";
 
-import { ReactComponent as CrownLogo } from "../../../assets/crown.svg"
+import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
 
-const Navbar = () =>{
-    return (
-      <>
+const Navbar = () => {
+  return (
+    <>
       <div className="navigation">
-        <Link className="logo-container" to='/'>
-          <CrownLogo className='logo'></CrownLogo>
+        <Link className="logo-container" to="/">
+          <CrownLogo className="logo"></CrownLogo>
         </Link>
         <div className="nav-links-container">
-            <Link to='/shop' className="nav-link"> Shop</Link>
-            <Link to='/signin' className="nav-link"> SignIn </Link>
-
+          <Link to="/shop" className="nav-link">
+            {" "}
+            Shop
+          </Link>
+          <Link to="/auth" className="nav-link">
+            {" "}
+            SignIn{" "}
+          </Link>
         </div>
       </div>
       <Outlet></Outlet>
-      </>
-    )
-  }
+    </>
+  );
+};
 
-  export default Navbar
+export default Navbar;

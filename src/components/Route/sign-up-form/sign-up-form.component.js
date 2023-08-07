@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "../../../utils/firebase/firebase.utils";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../../utils/firebase/firebase.utils";
+
+import Forminput from "../form-input/form-input.component";
+
+import "./sign-up.styles.scss";
+
+import Button from "../../button/button.component";
+
 const defaultFormValue = {
   displayName: "",
   email: "",
@@ -20,6 +30,10 @@ const SignUpForm = () => {
     });
   };
 
+  const resetFormFields = () => {
+    setFormFieldValue(defaultFormValue);
+  };
+
   const submitForm = async (event) => {
     event.preventDefault();
 
@@ -29,7 +43,14 @@ const SignUpForm = () => {
       return;
     }
     try {
-      await signInWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log("from signInWithEmailAndPassword", user);
+
+      await createUserDocumentFromAuth(user, { displayName });
+      resetFormFields();
     } catch (error) {
       console.log("from main error", error);
       if (error.code === "400") {
@@ -39,43 +60,43 @@ const SignUpForm = () => {
   };
 
   return (
-    <>
-      <h2>Signupform</h2>
+    <div className="sign-up-container">
+      <h2>Don't have an account</h2>
+      <span>Signup with your email and password</span>
       <form>
-        <label> Name:</label>
-        <input
+        <Forminput
+          label="Name:"
           type="text"
           name="displayName"
           onChange={upDateFormField}
           value={displayName}
-        />
-        <label> Email:</label>
-
-        <input
+        ></Forminput>
+        <Forminput
+          label="Email:"
           type="email"
           name="email"
           onChange={upDateFormField}
           value={email}
-        />
-        <label> password:</label>
-
-        <input
+        ></Forminput>
+        <Forminput
+          label="password:"
           type="password"
           name="password"
           onChange={upDateFormField}
           value={password}
-        />
-        <label> Confirm password:</label>
+        ></Forminput>
 
-        <input
+        <Forminput
+          label="Confirm password:"
           type="password"
           name="confirmPassword"
           onChange={upDateFormField}
           value={confirmPassword}
-        />
-        <button onClick={submitForm}> signup</button>
+        ></Forminput>
+
+        <Button onClick={submitForm}> signup</Button>
       </form>
-    </>
+    </div>
   );
 };
 export default SignUpForm;

@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -30,7 +31,7 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionInfo) => {
   const userDocRef = doc(db, "users", userAuth.uid);
 
   console.log("userrefdoc", userDocRef);
@@ -46,6 +47,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionInfo,
       });
     } catch (err) {
       console.log("failed to insert login record", err);
@@ -55,13 +57,12 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   console.log("exist");
 };
 
-export const signInWithEmailAndPassword = async (email, password) => {
-  console.log("received email and pass", email, password);
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((resp) => {
-      console.log("res", resp);
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  console.log("received email and pass and auth", email, password, auth);
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthWithEmailAndPassword = async (email, password) => {
+  console.log("received email and pass and auth", email, password, auth);
+  return await signInWithEmailAndPassword(auth, email, password);
 };
