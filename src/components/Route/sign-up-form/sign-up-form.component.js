@@ -9,7 +9,7 @@ const defaultFormValue = {
 const SignUpForm = () => {
   const [formField, setFormFieldValue] = useState(defaultFormValue);
 
-  const { displayname, email, password, confirmpassword } = formField;
+  const { displayName, email, password, confirmPassword } = formField;
 
   const upDateFormField = (event) => {
     const { value, name } = event.target;
@@ -21,11 +21,21 @@ const SignUpForm = () => {
   };
 
   const submitForm = async (event) => {
-    const { email, password } = formField;
-
     event.preventDefault();
-    const resp = await signInWithEmailAndPassword(email, password);
-    console.log("resp", resp);
+
+    if (password !== confirmPassword) {
+      console.log("pass", password, confirmPassword, displayName, email);
+      alert("passsword does not match");
+      return;
+    }
+    try {
+      await signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log("from main error", error);
+      if (error.code === "400") {
+        alert(error.message);
+      } else alert("login failed unknown error");
+    }
   };
 
   return (
@@ -37,7 +47,7 @@ const SignUpForm = () => {
           type="text"
           name="displayName"
           onChange={upDateFormField}
-          value={displayname}
+          value={displayName}
         />
         <label> Email:</label>
 
@@ -61,7 +71,7 @@ const SignUpForm = () => {
           type="password"
           name="confirmPassword"
           onChange={upDateFormField}
-          value={confirmpassword}
+          value={confirmPassword}
         />
         <button onClick={submitForm}> signup</button>
       </form>
