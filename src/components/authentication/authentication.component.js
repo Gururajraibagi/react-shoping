@@ -1,10 +1,10 @@
 import SignIn from "../Route/signin/signin.component";
 import SignUpForm from "../Route/sign-up-form/sign-up-form.component";
+import "./authentication.styles.scss";
 
 const Authentication = () => {
   return (
-    <div>
-      <h2>Sign in page</h2>
+    <div className="authentiation-container">
       <SignIn></SignIn>
       <SignUpForm></SignUpForm>
     </div>

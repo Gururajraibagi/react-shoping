@@ -37,16 +37,24 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
+      const resp = await signInAuthWithEmailAndPassword(email, password);
+      //await createUserDocumentFromAuth(user);
+      console.log("resp:", resp);
       resetFormFields();
     } catch (error) {
       console.log("from main error", error);
     }
   };
 
-  const onSignIn = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-    console.log(user);
+  const onSignIn = async (event) => {
+    event.preventDefault();
+    try {
+      const { user } = await signInWithGooglePopup();
+      await createUserDocumentFromAuth(user);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
@@ -58,6 +66,7 @@ const SignIn = () => {
             label="Email:"
             type="email"
             name="email"
+            required
             onChange={upDateFormField}
             value={email}
           ></Forminput>
@@ -67,16 +76,15 @@ const SignIn = () => {
             name="password"
             onChange={upDateFormField}
             value={password}
+            required
           ></Forminput>
 
           <div className="buttons-container">
             <Button type="submit" onClick={submitForm}>
-              {" "}
               Signin
             </Button>
-            <Button buttonType="google" onClick={onSignIn}>
-              {" "}
-              SignIn with Google
+            <Button type="button" buttonType="google" onClick={onSignIn}>
+              Google SignIn
             </Button>
           </div>
         </form>
