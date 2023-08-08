@@ -2,8 +2,8 @@ import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Route/home/home.component";
 import Navbar from "./components/Route/navigation/Navbar.component";
-import SignIn from "./components/Route/signin/signin.component";
-import SignUpForm from "./components/Route/sign-up-form/sign-up-form.component";
+import SignIn from "./components/signin/signin.component";
+import SignUpForm from "./components/sign-up-form/sign-up-form.component";
 import Authentication from "./components/authentication/authentication.component";
 
 const App = () => {

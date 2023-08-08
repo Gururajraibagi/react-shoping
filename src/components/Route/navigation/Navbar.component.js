@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import SignIn from "../signin/signin.component";
+import SignIn from "../../signin/signin.component";
 
 import { ReactComponent as CrownLogo } from "../../../assets/crown.svg";
 
