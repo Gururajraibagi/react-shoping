@@ -4,10 +4,9 @@ import {
   signInAuthWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "../button/button.component";
 import Forminput from "../form-input/form-input.component";
-import { UserContext } from "../../context/user.context";
 
 import "./sign-in.styles.scss";
 
@@ -18,8 +17,6 @@ const defaultFormValue = {
 
 const SignIn = () => {
   const [formField, setFormFieldValue] = useState(defaultFormValue);
-
-  const { setCurrentUser } = useContext(UserContext);
 
   const { email, password } = formField;
 
@@ -41,7 +38,6 @@ const SignIn = () => {
 
     try {
       const { user } = await signInAuthWithEmailAndPassword(email, password);
-      setCurrentUser(user);
       //await createUserDocumentFromAuth(user);
       console.log("resp user:", user);
       resetFormFields();
@@ -50,12 +46,10 @@ const SignIn = () => {
     }
   };
 
-  const onSignIn = async (event) => {
+  const signInWithGooglePopupButton = async (event) => {
     event.preventDefault();
     try {
-      const { user } = await signInWithGooglePopup();
-      await createUserDocumentFromAuth(user);
-      console.log(user);
+      await signInWithGooglePopup();
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +81,11 @@ const SignIn = () => {
             <Button type="submit" onClick={submitForm}>
               Signin
             </Button>
-            <Button type="button" buttonType="google" onClick={onSignIn}>
+            <Button
+              type="button"
+              buttonType="google"
+              onClick={signInWithGooglePopupButton}
+            >
               Google SignIn
             </Button>
           </div>
