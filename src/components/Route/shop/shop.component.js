@@ -5,11 +5,13 @@ import ProductCard from "../../product-card/product-card.component";
 import "./shop.styles.scss";
 function Shop() {
   const product = useContext(ProductContext);
-  return product.map((product) => (
+  return (
     <div className="products-container">
-      <ProductCard id={product.id} product={product}></ProductCard>
+      {product.map((product) => (
+        <ProductCard key={product.id} product={product}></ProductCard>
+      ))}
     </div>
-  ));
+  );
 }
 
 export default Shop;
