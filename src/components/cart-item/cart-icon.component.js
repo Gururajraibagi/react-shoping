@@ -3,7 +3,7 @@ import { ReactComponent as CartIconSvg } from "../../assets/shopping-bag.svg";
 import { CartContext } from "../../context/cart.context";
 import { useContext } from "react";
 export function CartIcon() {
-  const { dropdownValue, dropdownSet } = useContext(CartContext);
+  const { dropdownValue, dropdownSet, cardCount } = useContext(CartContext);
   return (
     <div
       className="cart-icon-container"
@@ -13,7 +13,7 @@ export function CartIcon() {
       }}
     >
       <CartIconSvg className="shopping-icon"></CartIconSvg>
-      <span className="item-count">0</span>
+      <span className="item-count">{cardCount}</span>
     </div>
   );
 }

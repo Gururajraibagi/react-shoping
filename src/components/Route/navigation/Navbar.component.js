@@ -39,12 +39,7 @@ const Navbar = () => {
               </Link>
             </>
           )}
-          <CartIcon
-            onClick={() => {
-              dropdownSet(true);
-              console.log("clickefd");
-            }}
-          ></CartIcon>
+          <CartIcon></CartIcon>
         </div>
         <CartItems dropdownValue={dropdownValue}></CartItems>
       </div>
