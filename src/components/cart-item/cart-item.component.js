@@ -3,12 +3,11 @@ import Button from "../button/button.component";
 import { useContext } from "react";
 import { CartContext } from "../../context/cart.context";
 import CartItemDropdown from "./cart-item.dropdown.component";
+import { Link } from "react-router-dom";
 
 export function CartItems({ dropdownValue }) {
-  console.log("dropdownvalue", dropdownValue);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, dropdownSet } = useContext(CartContext);
 
-  console.log("cart", cartItems);
   return (
     dropdownValue && (
       <div className="cart-dropdown-container">
@@ -18,7 +17,16 @@ export function CartItems({ dropdownValue }) {
             <CartItemDropdown key={item.id} cartItems={item}></CartItemDropdown>
           ))}
         </div>
-        <Button>Checkout</Button>
+        <Link to="/checkout">
+          {" "}
+          <Button
+            onClick={() => {
+              dropdownSet(!dropdownValue);
+            }}
+          >
+            Checkout
+          </Button>
+        </Link>
       </div>
     )
   );
